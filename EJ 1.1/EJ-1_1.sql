@@ -1,0 +1,38 @@
+--creo la base de datos con el nombre de la actividad
+create database Actividad1_1
+
+--Le digo manualmente con código al programa que quiero trabajar con esa base de datos específica
+use Actividad1_1
+
+--/*elimino una tabla manualmente
+drop table Carreras
+*/
+
+--Creo la tabla de carreas
+create table Carreras(
+	ID int not null primary key identity (1,1),
+	Nombre varchar(50) not null,
+	FechaCreacion date check (FechaCreacion < getDate() ),
+	Mail varchar(50) not null,
+	Nivel varchar(50) not null check (Nivel='Diplomatura' or Nivel='Pregrado'or Nivel='Grado' or Nivel='Posgrado')
+)
+
+--Creo la tabla de materias
+	--Nombre del campo, tipo de dato, indico si es llave primaria, (empieza en,incrementa en), acepta o no nulos
+create table Materias(
+	ID int not null primary key identity (1,1),
+	IDCarrera int not null foreign key references Carreras(ID),
+	Nombre varchar(50) not null,
+	CargaHoraria int not null check(CargaHoraria>0)
+)
+
+--Creo la tabla de Alumnos
+create table Alumnos(
+	Legajo bigint not null primary key identity(1000,1),
+	IDCarrera int not null foreign key references Carreras(ID),
+	Nombre varchar(50) not null,
+	Apellido varchar(50) not null,
+	FechaNacimiento date not null check(FechaNacimiento<getdate()),
+	Mail varchar(50) not null unique,
+	Telefono int null
+)
