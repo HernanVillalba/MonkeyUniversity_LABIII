@@ -129,7 +129,7 @@ create table Contenidos(
 	ID_Clase smallint,
 	ID_Contenido smallint not null,
 	ID_Tipo_Contenido smallint,
-	Tamaño_MB smallint check(Tamaño_MB>0)
+	TamaÃ±o_MB smallint check(TamaÃ±o_MB>0)
 )
 go
 alter table Contenidos 
@@ -141,7 +141,7 @@ go
 alter table Contenidos 
 add constraint FK_Cont_IDTipCont foreign key(ID_Tipo_contenido) references Tipo_Contenido(ID_Tipo_Contenido)
 
-/
+/*
 use Videojuegos
 drop Database MonkeyUniversity
 */
