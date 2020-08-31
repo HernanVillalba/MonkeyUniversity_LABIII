@@ -25,37 +25,37 @@ select *
 select *
 	from Cursos
 
--- 3	Listado con nombre, costo de inscripci髇, costo de certificaci髇 y fecha de estreno de todos los cursos.
+-- 3	Listado con nombre, costo de inscripci贸n, costo de certificaci贸n y fecha de estreno de todos los cursos.
 select Nombre, CostoCurso, CostoCertificacion, Estreno
 	from Cursos
 
--- 4	Listado con ID, nombre, costo de inscripci髇 e ID de nivel de todos los cursos cuyo costo de certificaci髇 sea menor a $ 5000.
+-- 4	Listado con ID, nombre, costo de inscripci贸n e ID de nivel de todos los cursos cuyo costo de certificaci贸n sea menor a $ 5000.
 select ID, Nombre, CostoCurso, IDNivel
 	from Cursos
 		where CostoCertificacion<5000
 
--- 5	Listado con ID, nombre, costo de inscripci髇 e ID de nivel de todos los cursos cuyo costo de certificaci髇 sea mayor a $ 1200.
+-- 5	Listado con ID, nombre, costo de inscripci贸n e ID de nivel de todos los cursos cuyo costo de certificaci贸n sea mayor a $ 1200.
 select ID, Nombre, CostoCurso, IDNivel
 	from Cursos
 		where CostoCertificacion>1200
 
--- 6	Listado con nombre, n鷐ero y duraci髇 de todas las clases del curso con ID n鷐ero 6.
+-- 6	Listado con nombre, n煤mero y duraci贸n de todas las clases del curso con ID n煤mero 6.
 select Nombre, Numero, Duracion
 	from Clases
 		where IDCurso=6
 
--- 7	Listado con nombre, n鷐ero y duraci髇 de todas las clases del curso con ID n鷐ero 10.
+-- 7	Listado con nombre, n煤mero y duraci贸n de todas las clases del curso con ID n煤mero 10.
 select Nombre, Numero, Duracion
 	from Clases
 		where IDCurso=10
 
--- 8	Listado con nombre y duraci髇 de todas las clases con ID Curso n鷐ero 4. Ordenado por duraci髇 de mayor a menor.
+-- 8	Listado con nombre y duraci贸n de todas las clases con ID Curso n煤mero 4. Ordenado por duraci贸n de mayor a menor.
 select Nombre, Duracion
 	from Clases
 		where IDCurso=4
 		order by Duracion desc
 
--- 9	Listado con nombre, fecha de estreno, costo del curso, costo de certificaci髇 ordenados por fecha de estreno de manera creciente.
+-- 9	Listado con nombre, fecha de estreno, costo del curso, costo de certificaci贸n ordenados por fecha de estreno de manera creciente.
 select Nombre, Estreno, CostoCurso, CostoCertificacion
 	from Cursos	
 		order by Estreno asc
@@ -65,25 +65,27 @@ select Nombre, Estreno, CostoCurso,IDNivel
 	from Cursos
 		where IDNivel in (1,5,6,7)
 
--- 11	Listado con nombre, fecha de estreno y costo de cursado de los tres cursos m醩 caros de certificar.
+-- 11	Listado con nombre, fecha de estreno y costo de cursado de los tres cursos m谩s caros de certificar.
 select top 3 with ties Nombre, Estreno, CostoCurso
 	from Cursos
 		order by CostoCertificacion
 	
 
--- 12	Listado con nombre, duraci髇 y n鷐ero de todas clases de los cursos con ID 2, 5 y 7. --		Ordenados por ID de Curso ascendente y luego por n鷐ero de clase ascendente.
+-- 12	Listado con nombre, duraci贸n y n煤mero de todas clases de los cursos con ID 2, 5 y 7. 
+--		Ordenados por ID de Curso ascendente y luego por n煤mero de clase ascendente.
 select Nombre, Duracion, Numero, ID
 	from Clases
 		where ID in (2,5,7)
 		order by ID asc, Numero asc
 
--- 13	Listado con nombre y fecha de estreno de todos los cursos cuya fecha de estreno haya sido en el segundo semestre del a駉 2019.
+-- 13	Listado con nombre y fecha de estreno de todos los cursos cuya fecha de estreno haya sido en el primer semestre del a帽o 2019.
 set dateformat 'DMY'
 select Nombre, Estreno
 	from Cursos
-		where Estreno>='30/6/2019' and Estreno<='31/12/2019'
+		--where Estreno>='30/6/2019' and Estreno<='31/12/2019'
+		where month(Estreno)<=6 and year(Estreno)=2019
 
--- 14	Listado de cursos cuya fecha de estreno haya sido en el a駉 2020.
+-- 14	Listado de cursos cuya fecha de estreno haya sido en el a帽o 2020.
 select *
 	from Cursos
 		where year(Estreno)=2020
@@ -92,7 +94,7 @@ select *
 -- Investigar:
 /*
 DATEPART:
-	devuelve una parte espec韋ica de una fecha. Esta funci髇 devuelve el resultado como un valor entero.
+	devuelve una parte espec铆fica de una fecha. Esta funci贸n devuelve el resultado como un valor entero.
 		Sintaxis: DATEPART(interval, date)
 DATEDIFF:
 	devuelve la diferencia entre dos fechas.
@@ -108,22 +110,22 @@ select *
 	from Cursos
 		where month(Estreno) between 1 and 4
 
--- 16	Listado de clases cuya duraci髇 se encuentre entre 15 y 90 minutos.
+-- 16	Listado de clases cuya duraci贸n se encuentre entre 15 y 90 minutos.
 select *
 	from Clases
 		where Duracion between 15 and 90
 
--- 17	Listado de contenidos cuyo tama駉 supere los 5000MB y sean de tipo 4 o sean menores a 400MB y sean de tipo 1.
+-- 17	Listado de contenidos cuyo tama帽o supere los 5000MB y sean de tipo 4 o sean menores a 400MB y sean de tipo 1.
 select *
 	from Contenidos
-		where (Tama駉>5000 and IDTipo=4) or (Tama駉<400 and IDTipo=1)
+		where (Tama帽o>5000 and IDTipo=4) or (Tama帽o<400 and IDTipo=1)
 
 -- 18	Listado de cursos que no posean ID de nivel.
 select * 
 	from Cursos	
 		where IDNivel is null
 
--- 19	Listado de cursos cuyo costo de certificaci髇 corresponda al 20% o m醩 del costo del curso.
+-- 19	Listado de cursos cuyo costo de certificaci贸n corresponda al 20% o m谩s del costo del curso.
 select *
 	from Cursos
 		where CostoCertificacion >= CostoCurso*0.2
