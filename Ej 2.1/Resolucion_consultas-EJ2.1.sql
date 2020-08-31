@@ -82,7 +82,7 @@ select Nombre, Duracion, Numero, ID
 set dateformat 'DMY'
 select Nombre, Estreno
 	from Cursos
-		--where Estreno>='30/6/2019' and Estreno<='31/12/2019'
+		--where Estreno>='1/1/2019' and Estreno<='30/6/2019'
 		where month(Estreno)<=6 and year(Estreno)=2019
 
 -- 14	Listado de cursos cuya fecha de estreno haya sido en el año 2020.
