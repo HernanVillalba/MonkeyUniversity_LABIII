@@ -1,7 +1,7 @@
 --creo la base de datos con el nombre de la actividad
 create database Actividad1_1
 
---Le digo manualmente con código al programa que quiero trabajar con esa base de datos específica
+--Le digo manualmente con cÃ³digo al programa que quiero trabajar con esa base de datos especÃ­fica
 use Actividad1_1
 
 --/*elimino una tabla manualmente
