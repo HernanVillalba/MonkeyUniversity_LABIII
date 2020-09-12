@@ -1,0 +1,2 @@
+corregir 
+tiene q haber 2 PK en instructores
