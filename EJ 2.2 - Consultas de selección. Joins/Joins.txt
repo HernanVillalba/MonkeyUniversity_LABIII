@@ -1,0 +1,4 @@
+JOINS
+inner join = es la interseccion de dos o mas tablas
+
+left join = todo el conjunto de la izquierda junto con la inteseccion del de la derecha
