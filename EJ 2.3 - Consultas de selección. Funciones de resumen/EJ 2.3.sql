@@ -5,20 +5,20 @@ select count(*) as 'Cantidad cursos' from cursos
 -- 2  Listado con la cantidad de usuarios.
 select count(*) as 'Cantidad de usuarios' from Usuarios
 
--- (3)  Listado con el promedio de costo de certificaciÛn de los cursos.
+-- (3)  Listado con el promedio de costo de certificaci√≥n de los cursos.
 select avg(CostoCertificacion) as Promedio from Cursos
 Select avg(CostoCertificacion) as Promedio From Cursos
 
--- 4  Listado con el promedio general de calificaciÛn de reseÒas.
-select avg(R.Puntaje) as Promedio from ReseÒas as R
+-- 4  Listado con el promedio general de calificaci√≥n de rese√±as.
+select avg(R.Puntaje) as Promedio from Rese√±as as R
 
--- (5)  Listado con la fecha de estreno de curso m·s antigua.
+-- (5)  Listado con la fecha de estreno de curso m√°s antigua.
 select min(C.estreno) from Cursos as C
 
 --select top 1 estreno from cursos
 --order by estreno asc
 
--- 6  Listado con el costo de certificaciÛn menos costoso.
+-- 6  Listado con el costo de certificaci√≥n menos costoso.
 select min(C.CostoCertificacion) as 'Certificacion menos costosa' from Cursos as C
 
 
@@ -52,14 +52,14 @@ from Certificaciones as C
 join Inscripciones as I on I.ID=C.IDInscripcion
 
 
--- (13)  Listado con el nombre del paÌs y la cantidad de usuarios de cada paÌs.
+-- (13)  Listado con el nombre del pa√≠s y la cantidad de usuarios de cada pa√≠s.
 select P.Nombre as Pais, count(Dat.ID) as Cantidad
 from Paises as P
 left join Datos_Personales as Dat on P.ID=Dat.IDPais
 group by P.Nombre
 order by 2 desc
 
--- (14)  Listado con el apellido y nombres del usuario y el importe m·s costoso abonado como pago. SÛlo listar aquellos que hayan abonado m·s de $7500.
+-- (14)  Listado con el apellido y nombres del usuario y el importe m√°s costoso abonado como pago. S√≥lo listar aquellos que hayan abonado m√°s de $7500.
 select Dat.Apellidos, Dat.Nombres, max(P.Importe) as ImporteMax
 from Pagos as P
 join Inscripciones as I on I.ID=P.IDInscripcion
@@ -69,7 +69,7 @@ group by Dat.Apellidos, Dat.Nombres
 having max(P.Importe)>7500
 order by Dat.Apellidos asc,Dat.Nombres asc
 
--- 15  Listado con el apellido y nombres de usuario y el importe m·s costoso de curso al cual se haya inscripto.
+-- 15  Listado con el apellido y nombres de usuario y el importe m√°s costoso de curso al cual se haya inscripto.
 select Dat.Apellidos, Dat.Nombres, max(P.Importe) as MaxImporte
 from Cursos as C
 join Inscripciones as I on I.IDCurso = C.ID
@@ -79,7 +79,7 @@ join Datos_Personales as Dat on Dat.ID = U.ID
 group by Dat.Apellidos, Dat.Nombres
 order by Dat.Apellidos asc, Dat.Nombres asc
 
--- 16  Listado con el nombre del curso, nombre del nivel, cantidad total de clases y duraciÛn total del curso en minutos.
+-- 16  Listado con el nombre del curso, nombre del nivel, cantidad total de clases y duraci√≥n total del curso en minutos.
 select C.Nombre as Nombre,
 	   N.Nombre as Nivel,
 	   count(Cla.IDCurso) as CantidadClases,
@@ -90,7 +90,7 @@ join Clases as Cla on Cla.IDCurso = C.ID
 group by C.Nombre, N.Nombre
 
 
--- 17  Listado con el nombre del curso y cantidad de contenidos registrados. SÛlo listar aquellos cursos que tengan m·s de 10 contenidos registrados.
+-- 17  Listado con el nombre del curso y cantidad de contenidos registrados. S√≥lo listar aquellos cursos que tengan m√°s de 10 contenidos registrados.
 select C.Nombre as Curso,
 	   count(*)	as CantidadContenidos
 from Cursos as C
@@ -120,7 +120,7 @@ join Idiomas_x_Curso as IxC on IxC.IDCurso = C.ID
 group by C.Nombre
 order by CantidadIdiomas desc, C.Nombre asc
 
--- 20  Listado de categorÌas de curso y cantidad de cursos asociadas a cada categorÌa. SÛlo mostrar las categorÌas con m·s de 5 cursos.
+-- 20  Listado de categor√≠as de curso y cantidad de cursos asociadas a cada categor√≠a. S√≥lo mostrar las categor√≠as con m√°s de 5 cursos.
 select Cat.Nombre as Categoria,
 	   count(CxC.IDCurso) as CantidadCursos
 from Categorias_x_Curso as CxC
@@ -136,7 +136,7 @@ join Contenidos as Cont on Cont.IDTipo = TC.ID
 group by TC.Nombre
 
 
--- 22  Listado con Nombre del curso, nivel, aÒo de estreno y el total recaudado en concepto de inscripciones. 
+-- 22  Listado con Nombre del curso, nivel, a√±o de estreno y el total recaudado en concepto de inscripciones. 
 --     Listar aquellos cursos sin inscripciones con total igual a $0.
 select C.Nombre as Curso,
 	   N.Nombre as Nivel,
@@ -148,7 +148,7 @@ left join Niveles as N on N.ID = C.IDNivel
 group by C.Nombre, N.Nombre, year(C.Estreno)
 
 
--- 23  Listado con Nombre del curso, costo de cursado y certificaciÛn y cantidad de usuarios distintos inscriptos cuyo costo de cursado 
+-- 23  Listado con Nombre del curso, costo de cursado y certificaci√≥n y cantidad de usuarios distintos inscriptos cuyo costo de cursado 
 --     sea menor a $10000 y cuya cantidad de usuarios inscriptos sea menor a 5. Listar aquellos cursos sin inscripciones con cantidad 0.
 select C.Nombre as Curso,
 	   C.CostoCurso as Cursado,
@@ -160,7 +160,7 @@ group by C.Nombre, C.CostoCurso, C.CostoCertificacion
 having C.CostoCurso<10000 and count(distinct I.IDUsuario)<5
 
 
--- 24  Listado con Nombre del curso, fecha de estreno y nombre del nivel del curso que m·s recaudÛ en concepto de certificaciones.
+-- 24  Listado con Nombre del curso, fecha de estreno y nombre del nivel del curso que m√°s recaud√≥ en concepto de certificaciones.
 select top 1 
 	   C.Nombre as Curso,
 	   C.Estreno,
@@ -174,7 +174,7 @@ group by C.Nombre, C.Estreno, N.Nombre
 order by sum(Cer.Costo) desc
 
 
--- 25  Listado con Nombre del idioma del idioma m·s utilizado como subtÌtulo.
+-- 25  Listado con Nombre del idioma del idioma m√°s utilizado como subt√≠tulo.
 select top 1
 	   I.Nombre as Idioma,
 	   count(IxC.IDTipo) as Cantidad
@@ -186,31 +186,31 @@ order by count(IxC.IDTipo) desc
 
 
 
--- 26  Listado con Nombre del curso y promedio de puntaje de reseÒas apropiadas.
+-- 26  Listado con Nombre del curso y promedio de puntaje de rese√±as apropiadas.
 select C.Nombre as Curso,
 	   avg(R.Puntaje) as PromedioPuntaje
 from Cursos as C
 join Inscripciones as I on I.IDCurso = C.ID
-join ReseÒas as R on R.IDInscripcion = I.ID
+join Rese√±as as R on R.IDInscripcion = I.ID
 where R.Inapropiada = 0
 group by C.Nombre
 
--- 27  Listado con Nombre de usuario y la cantidad de reseÒas inapropiadas que registrÛ.
+-- 27  Listado con Nombre de usuario y la cantidad de rese√±as inapropiadas que registr√≥.
 select U.NombreUsuario,
-	   count(R.Inapropiada) as ReseÒasInapropiadas
+	   count(R.Inapropiada) as Rese√±asInapropiadas
 from Usuarios as U
 join Inscripciones as I on I.IDUsuario = U.ID
-join ReseÒas as R on R.IDInscripcion = I.ID
+join Rese√±as as R on R.IDInscripcion = I.ID
 where R.Inapropiada = 1
 group by U.NombreUsuario
 
 
--- 28  Listado con Nombre del curso, nombre y apellidos de usuarios y la cantidad de veces que dicho usuario realizÛ dicho curso.
+-- 28  Listado con Nombre del curso, nombre y apellidos de usuarios y la cantidad de veces que dicho usuario realiz√≥ dicho curso.
 --     No mostrar cursos y usuarios que contabilicen cero.
 select C.Nombre as Curso, U.ID,
 	   DP.Apellidos,
 	   DP.Nombres,
-	   count(I.IDCurso) as 'Cantidad de veces que cursÛ'
+	   count(I.IDCurso) as 'Cantidad de veces que curs√≥'
 from Datos_Personales as DP
 join Usuarios as U on U.ID = DP.ID
 join Inscripciones as I on I.IDUsuario = U.ID
@@ -219,8 +219,8 @@ group by C.Nombre, U.ID, DP.Apellidos, DP.Nombres
 order by C.Nombre asc, DP.Apellidos asc, DP.Nombres
 
 
--- 29  Listado con Apellidos y nombres, mail y duraciÛn total en concepto de clases de cursos a los que se haya inscripto. 
---	   SÛlo listar informaciÛn de aquellos registros cuya duraciÛn total supere los 400 minutos.
+-- 29  Listado con Apellidos y nombres, mail y duraci√≥n total en concepto de clases de cursos a los que se haya inscripto. 
+--	   S√≥lo listar informaci√≥n de aquellos registros cuya duraci√≥n total supere los 400 minutos.
 select Dat.Apellidos,
 	   Dat.Nombres,
 	   Dat.Email,
@@ -234,6 +234,12 @@ group by Dat.Apellidos, Dat.Nombres, Dat.Email
 having	sum(Cla.Duracion)>400
 
 
--- 30  Listado con nombre del curso y recaudaciÛn total. La recaudaciÛn total consiste en la sumatoria de costos de inscripciÛn y de certificaciÛn. 
---	   Listarlos ordenados de mayor a menor por recaudaciÛn.
-
+-- 30  Listado con nombre del curso y recaudaci√≥n total. La recaudaci√≥n total consiste en la sumatoria de costos de inscripci√≥n y de certificaci√≥n. 
+--	   Listarlos ordenados de mayor a menor por recaudaci√≥n.
+select C.Nombre as Curso,
+	   sum(I.Costo) as Recaudacion
+from Cursos as C
+join Inscripciones as I on I.IDCurso=C.ID
+left join Certificaciones as Cer on Cer.IDInscripcion = I.ID
+group by C.Nombre
+order by Recaudacion desc
